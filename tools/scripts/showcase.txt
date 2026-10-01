@@ -18,7 +18,7 @@ tap RIGHT
 tap A
 wait 10
 tap DOWN
-say F 1 1 5 5 1
+say F 1 1 2 2 1
 hold A
 wait 35
 release

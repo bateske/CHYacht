@@ -1,21 +1,21 @@
 # CHYacht — Yacht Dice for CHGame
 
 Five dice, three rolls a turn, thirteen boxes to fill: the classic five-dice
-score-card game, for the [CHGame](https://github.com/bateske) handheld
+score-card game, for the CHGame handheld
 (CH32X035, 128×128 colour LCD, piezo). It sits in the same casino as
-CHBlackjack, CHCraps and the rest: the same felt, chips and lettering, and
+[CHBlackjack](https://github.com/bateske/CHBlackjack), [CHCraps](https://github.com/bateske/CHCraps) and the rest: the same felt, chips and lettering, and
 CHCraps's 3D dice — five of them now — thrown down a wooden tray.
 
-![screens](docs/screens.png)
+![gameplay](docs/gameplay.gif)
 
-![a turn](docs/turn.gif)
+![screens](docs/screens.png)
 
 ## Playing
 
 | | |
 |---|---|
 | **ROLL** | Hold **A** to shake the dice, let go to throw. **B** while shaking puts them back down; **B** in the air skips the tumble. |
-| **The tray** | **LEFT / RIGHT** pick a die, **A** holds it (held dice sit the next roll out). **DOWN** goes to ROLL, **UP** (or **B**) to the card. |
+| **The tray** | **LEFT / RIGHT** pick a die, **A** holds it (held dice sit the next roll out). **DOWN** goes to ROLL, **UP** (or **B**) to the card, onto the best-scoring box. |
 | **The card** | The D-pad moves between boxes; open boxes show what the dice on the table would score. **A** scores. A box that would score 0 asks for **A** twice. |
 | **SELECT** | Look at the next seat's card. |
 | **START** | Pause: options, sound, SAVE & QUIT. |

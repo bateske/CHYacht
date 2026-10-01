@@ -355,7 +355,7 @@ static void humanInput() {
                 if (game.rollsLeft) focus = F_ROLL;
                 else present::deny();
             }
-            if (uy < 0 || b) { focus = F_CARD; if (!game.legal(catSel)) catSel = bestBox(); }
+            if (uy < 0 || b) { focus = F_CARD; catSel = bestBox(); }      // straight to the best box
             break;
         case F_CARD:
             if (ux || uy) { moveCard(ux, uy); confirm = 0xFF; }
