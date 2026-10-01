@@ -122,7 +122,7 @@ static void testThrows() {
                         int32_t dx = d.x - p.d[j].x, dz = d.z - p.d[j].z;
                         if (dx < 0) dx = -dx;
                         if (dz < 0) dz = -dz;
-                        CHECK(dx >= (14 << 8) || dz >= (14 << 8), "kept %d power %d throw %d: dice %d and %d inside each other (%d, %d)",
+                        CHECK(dx >= ((EDGE - 2) << 8) || dz >= ((EDGE - 2) << 8), "kept %d power %d throw %d: dice %d and %d inside each other (%d, %d)",
                               kept, power, k, i, j, dx >> 8, dz >> 8);
                     }
                 }

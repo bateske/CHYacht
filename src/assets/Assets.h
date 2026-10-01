@@ -11,5 +11,8 @@ extern const uint8_t CHIP_TOP[35];
 extern const uint8_t CHIP_SIDE[28];
 extern const uint8_t CHIP_SMALL_TOP[31];
 extern const uint8_t CHIP_SMALL_SIDE[13];
+extern const uint8_t LOGO[255];
+constexpr int LOGO_W = 116;
+constexpr int LOGO_H = 17;
 extern const uint16_t FACE_EDITS[138];
 extern const uint16_t FACE_EDIT_AT[7];

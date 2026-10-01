@@ -22,6 +22,7 @@
 #include "../gfx/Palette.h"
 #include "../audio/Audio.h"
 #include "../save/Save.h"
+#include "../assets/Assets.h"
 #include "../debug/Debug.h"
 
 #if CHYD_DEBUG && defined(CHSIM)
@@ -185,12 +186,12 @@ static void titleDiceInit() {
     memset(titleDice, 0, sizeof titleDice);
     for (uint8_t i = 0; i < d3::N; i++) {
         d3::Die &d = titleDice[i];
-        d.x = (i - 2) * 22 * 256; d.y = 10 * 256; d.z = 40 * 256;
+        d.x = (i - 2) * 33 * 128; d.y = 15 * 128; d.z = 40 * 256;
         d.yaw = (uint16_t)(i * 13000 + 9000); d.pitch = (uint16_t)(i * 23000 + 3000); d.roll = (uint16_t)(i * 30000);
         d3::labelDie(d, 2, 6, i);                        // pips from the first frame
     }
     d3::defaultCam(titleCam);
-    titleCam.focal = 106; titleCam.camY = 40 * 256; titleCam.sy0 = 11;      // level, close in
+    titleCam.focal = 141; titleCam.camY = 30 * 256; titleCam.sy0 = 11;      // level, close in
 }
 
 static void titleUpdate() {
@@ -220,12 +221,12 @@ static void titleUpdate() {
         int8_t dir = (i & 1) ? 1 : -1;
         if (k == 0) d3::labelDie(d, 2, (uint8_t)(6 - (t / 240) % 6), (uint8_t)(t >> 3));
         if (k < 180) {
-            d.y = (int32_t)(10 * 256 + fx::isin(k * 2 + i * 40) * 6);
+            d.y = (int32_t)(15 * 128 + fx::isin(k * 2 + i * 40) * 9 / 2);
             d.yaw = (uint16_t)(d.yaw + dir * 280);
             d.pitch = (uint16_t)(d.pitch + 350 + i * 30);
             d.roll = (uint16_t)(d.roll + 120 + i * 40);
         } else {
-            d.y = 10 * 256;
+            d.y = 15 * 128;
             d.pitch = (uint16_t)(d.pitch - (int16_t)d.pitch / 3);
             d.roll = (uint16_t)(d.roll - (int16_t)d.roll / 3);
             d.yaw = (uint16_t)(d.yaw + (int16_t)(dir * 2000 - (int16_t)d.yaw) / 6);
@@ -236,7 +237,12 @@ static void titleUpdate() {
 
 static void titleStatic(uint32_t frame) {
     feltBackdrop();
-    title35("YACHT~DICE", 7, FX_B, GOLD, WOOD, WINE, 11);
+    // The lettering: a gradient, an outline and a shadow.
+    uint8_t ramp[LOGO_H];
+    for (int i = 0; i < LOGO_H; i++) ramp[i] = i < 3 ? FX_B : (i < 11 ? GOLD : WOOD);
+    Mask m = maskBegin(LOGO_W, LOGO_H);
+    maskBlit1(m, LOGO, (uint8_t)LOGO_W, (uint8_t)LOGO_H);
+    maskDraw(m, 64 - LOGO_W / 2, 6, GOLD, INK, WINE, ramp);
     char buf[24];
     fmtMoney(fmtStr(buf, "PURSE "), game.purse);
     text35(7, 116, buf, FELT_LT);

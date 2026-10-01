@@ -95,7 +95,7 @@ void labelDie(Die &d, uint8_t up, uint8_t v, uint8_t spin) {
 // Physics
 // ---------------------------------------------------------------------------
 static const int32_t G = 30;             // gravity, Q8 units per tick^2
-static const int32_t R2 = 18 << 8;       // two dice closer than this (per axis) touch
+static const int32_t R2 = (EDGE + 2) << 8;      // two dice closer than this (per axis) touch
 
 void hold(Dice &p, uint8_t kept) {
     uint8_t n = 0, j = 0;
@@ -314,6 +314,7 @@ int16_t scaleAt(const Cam &c, int32_t y, int32_t z) {
 static const uint16_t PIPS[7] = {0, 0x010, 0x101, 0x111, 0x145, 0x155, 0x16D};
 // The light comes from above, behind the shooter's left shoulder (Q8 unit).
 static const int LX = -90, LY = 205, LZ = -123;
+static const int PIP = 4;                // pip pitch across a face, world units
 
 void draw(const Die &d, const Cam &c, const Look &l) {
     Mat m = matrix(d);
@@ -368,8 +369,8 @@ void draw(const Die &d, const Cam &c, const Look &l) {
         for (uint8_t b = 0; b < 9; b++) {
             if (!(mask >> b & 1)) continue;
             int ca = b % 3 - 1, cb = b / 3 - 1;
-            int32_t ox = (ca * m.m[0][t1] + cb * m.m[0][t2]) * 5, oy = (ca * m.m[1][t1] + cb * m.m[1][t2]) * 5,
-                    oz = (ca * m.m[2][t1] + cb * m.m[2][t2]) * 5;
+            int32_t ox = (ca * m.m[0][t1] + cb * m.m[0][t2]) * PIP, oy = (ca * m.m[1][t1] + cb * m.m[1][t2]) * PIP,
+                    oz = (ca * m.m[2][t1] + cb * m.m[2][t2]) * PIP;
             int16_t qx, qy;
             project(c, px + ox, py + oy, pz + oz, qx, qy);
             int x = (qx + 8) >> 4, y = (qy + 8) >> 4;

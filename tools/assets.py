@@ -9,6 +9,7 @@ Sources:
     and his expressions. Monochrome PNGs are recoloured here.
   * CHBlackjack's hand-painted dealer, tools/art/dealer.png (palette-exact,
     the whole 48x42 dealer, replacing the recoloured PPOT bust).
+  * New art drawn for this game: tools/art/logo.txt (the "Yacht Dice" title).
   * The chips as palette-letter text (tools/art/chip_*.txt).
 
 Outputs:
@@ -343,6 +344,13 @@ class Out:
         OUT_C.write_text(hdr + '#include "Assets.h"\n\n' + "\n".join(self.c) + "\n")
 
 
+def load_bits(name):
+    """tools/art/<name>.txt: '#' = set, anything else clear; ';' starts a comment line."""
+    rows = [ln for ln in (ART / f"{name}.txt").read_text().splitlines() if ln and not ln.startswith(";")]
+    w = max(len(r) for r in rows)
+    return [[1 if x < len(r) and r[x] == "#" else 0 for x in range(w)] for r in rows]
+
+
 def main():
     ensure_ppot()
     o = Out()
@@ -387,6 +395,13 @@ def main():
         img = load_art(f)
         o.array(f.upper(), pack_span4(img), comment=f"{f} {len(img[0])}x{len(img)}, row spans")
         preview(f, img, bg=3)
+
+    # The "Yacht Dice" title lettering (new for this game).
+    logo = load_bits("logo")
+    o.array("LOGO", pack_rows1(logo), comment=f"'Yacht Dice' title lettering {len(logo[0])}x{len(logo)}, MSB-first rows")
+    o.const("LOGO_W", len(logo[0]))
+    o.const("LOGO_H", len(logo))
+    mono_preview("logo", logo)
 
     # Expressions drawn for CHBlackjack, edited from the normal face patch.
     base = normal

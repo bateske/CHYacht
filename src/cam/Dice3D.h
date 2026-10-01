@@ -1,6 +1,6 @@
 // Five real 3D dice (CHCraps's pair, grown): integer rigid-ish body physics and a pinhole camera.
 //
-// World units: a die's edge is 16; X right, Y up (the felt is Y = 0), Z away
+// World units: a die's edge is 12; X right, Y up (the felt is Y = 0), Z away
 // from the shooter towards the back wall. Positions and velocities are Q8
 // (x256), one physics step per 60 Hz logic tick. Orientation is three Euler
 // angles (65536 a turn): R = Ry(yaw) Rx(pitch) Rz(roll). A die at rest has
@@ -18,7 +18,7 @@
 
 namespace d3 {
 
-const int EDGE = 16, HALF = 8;          // die size, world units
+const int EDGE = 12, HALF = 6;          // die size, world units
 const int32_t WALL_Z = 132 << 8;        // the back wall's face
 const int32_t NEAR_Z = -24 * 256;       // the near rail
 const int32_t SIDE_X = 76 << 8;         // the side rails (+-)
