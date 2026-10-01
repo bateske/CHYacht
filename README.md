@@ -79,7 +79,7 @@ python tools/device.py build            # release image + size report
 python tools/device.py upload           # ... and upload it
 ```
 
-The release image is about 43.6 KB of the 50.9 KB application region, which
+The release image is about 43.7 KB of the 50.9 KB application region, which
 leaves both save pages free.
 
 ### Simulator and tests
